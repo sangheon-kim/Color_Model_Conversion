@@ -1,5 +1,3 @@
-// 삼각함수 계산용 wrapper
-const $circle = document.querySelector(".circle");
 // 원형판
 const $circleBoard = document.querySelector(".color-circle");
 // 포인터 Element
@@ -19,6 +17,9 @@ const $redInput = document.querySelector("#red-input");
 const $blueInput = document.querySelector("#blue-input");
 const $greenInput = document.querySelector("#green-input");
 const $hexInput = document.querySelector("#hex-input");
+
+// 드래그 여부 체크
+let selectedElement = false;
 
 // 정사각형이기때문에 중심좌표는 반지름이다.
 const centerPoint = Math.floor($circleBoard.clientWidth / 2);
@@ -329,8 +330,8 @@ const hslObj = {
   },
 };
 
-$circleBoard.addEventListener("click", function (e) {
-  let { offsetX, offsetY } = e;
+function startDrag(e) {
+  const { offsetX, offsetY } = e;
 
   if (e.target.id !== "point") {
     // 클릭한 위치에 따라 위치 환산
@@ -353,7 +354,45 @@ $circleBoard.addEventListener("click", function (e) {
 
     changeResultBoard();
   }
-});
+
+  selectedElement = true;
+}
+
+function drag(e) {
+  if (!!selectedElement) {
+    const { offsetX, offsetY } = e;
+
+    if (e.target.id !== "point") {
+      // 클릭한 위치에 따라 위치 환산
+      $point.style.left = `${offsetX - 7.5}px`;
+      $point.style.top = `${offsetY - 7.5}px`;
+      // $point.style.transform = "initial";
+
+      // 거리는 원의 방정식을 이용해서 구해준다.
+      let distance = circleEquation(centerPoint, [offsetX, offsetY]);
+      // 포인터의 거리에 대한 반지름 비율 계산
+      const pointerDistance = Math.floor((distance / centerPoint) * 100);
+
+      $saturationInput.value = pointerDistance;
+      $saturationRange.value = pointerDistance;
+
+      const degree = useDistanceCalculateAngle(centerPoint, [offsetX, offsetY]);
+
+      $hueInput.value = degree;
+      $hueRange.value = degree;
+
+      changeResultBoard();
+    }
+  }
+}
+function endDrag(e) {
+  selectedElement = false;
+}
+
+$circleBoard.addEventListener("mousedown", startDrag);
+$circleBoard.addEventListener("mousemove", drag);
+$circleBoard.addEventListener("mouseup", endDrag);
+$circleBoard.addEventListener("mouseleave", endDrag);
 
 registerEventListener($hueInput, "input", inputEvent, "hue");
 registerEventListener($hueRange, "input", rangeEvent, "hue");
