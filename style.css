@@ -1,0 +1,148 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* justify-content: center; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.circle {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-image: url("./img//OiprB.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 30px;
+}
+
+.color-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 66%;
+  height: 66%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.point {
+  position: absolute;
+  top: -8px;
+  left: calc(50% - 7.5px);
+  /* transform: translateX(-50%); */
+  /* transform-origin: center; */
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  /* box-sizing: border-box; */
+  background-color: red;
+}
+
+.brightness-board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 67%;
+  height: 67%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.result-board {
+  width: 150px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form > label {
+  min-width: 110px;
+  margin-right: 16px;
+}
+
+.form > input[type="range"] {
+  margin-right: 12px;
+  min-width: 100px;
+}
+
+.form > input[type="number"] {
+  width: 50px;
+}
+
+input[type="number"] + span {
+  margin-left: 5px;
+}
+
+.input-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.input-form input[type="number"] {
+  width: 45px;
+}
+
+.input-form > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 5px 0;
+}
+
+.input-form > div label {
+  margin: 0 5px;
+}
+/*# sourceMappingURL=style.css.map */
