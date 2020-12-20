@@ -246,7 +246,7 @@ function rgbToHex(R, G, B) {
   let Hex = R * 65536 + G * 256 + B;
   Hex = Hex.toString(16, 6);
   let len = Hex.length;
-  if (len < 6) for (i = 0; i < 6 - len; i++) Hex = "0" + Hex;
+  if (len < 6) for (let i = 0; i < 6 - len; i++) Hex = "0" + Hex;
 
   $hexInput.value = Hex.toUpperCase();
 }
@@ -258,7 +258,7 @@ function rgbToHex(R, G, B) {
  * @param {*} offsetArray
  * @returns
  */
-function useDistanceCalculateAngle(centerPoint, offsetArray) {
+function distanceCalculateAngle(centerPoint, offsetArray) {
   const [offsetX, offsetY] = offsetArray;
   // 중심점에서 현재 원에서의 x좌표값
   const x = centerPoint - offsetX;
@@ -331,8 +331,15 @@ const hslObj = {
 };
 
 function startDrag(e) {
-  const { offsetX, offsetY } = e;
+  let { offsetX, offsetY, touches } = e;
 
+  if (!!e.touches) {
+    const { left, top } = $circleBoard.getBoundingClientRect();
+    const { clientX, clientY } = touches[0];
+
+    offsetX = clientX - left;
+    offsetY = clientY - top;
+  }
   if (e.target.id !== "point") {
     // 클릭한 위치에 따라 위치 환산
     $point.style.left = `${offsetX - 7.5}px`;
@@ -347,7 +354,7 @@ function startDrag(e) {
     $saturationInput.value = pointerDistance;
     $saturationRange.value = pointerDistance;
 
-    const degree = useDistanceCalculateAngle(centerPoint, [offsetX, offsetY]);
+    const degree = distanceCalculateAngle(centerPoint, [offsetX, offsetY]);
 
     $hueInput.value = degree;
     $hueRange.value = degree;
@@ -360,28 +367,41 @@ function startDrag(e) {
 
 function drag(e) {
   if (!!selectedElement) {
-    const { offsetX, offsetY } = e;
+    let { offsetX, offsetY, touches } = e;
 
+    if (!!e.touches) {
+      const { left, top } = $circleBoard.getBoundingClientRect();
+      const { clientX, clientY } = touches[0];
+
+      offsetX = clientX - left;
+      offsetY = clientY - top;
+    }
     if (e.target.id !== "point") {
-      // 클릭한 위치에 따라 위치 환산
-      $point.style.left = `${offsetX - 7.5}px`;
-      $point.style.top = `${offsetY - 7.5}px`;
-      // $point.style.transform = "initial";
+      if (
+        offsetY < $circleBoard.clientHeight &&
+        offsetY > 8 &&
+        offsetX < $circleBoard.clientWidth &&
+        offsetX > 8
+      ) {
+        // 클릭한 위치에 따라 위치 환산
+        $point.style.left = `${offsetX - 7.5}px`;
+        $point.style.top = `${offsetY - 7.5}px`;
 
-      // 거리는 원의 방정식을 이용해서 구해준다.
-      let distance = circleEquation(centerPoint, [offsetX, offsetY]);
-      // 포인터의 거리에 대한 반지름 비율 계산
-      const pointerDistance = Math.floor((distance / centerPoint) * 100);
+        // 거리는 원의 방정식을 이용해서 구해준다.
+        let distance = circleEquation(centerPoint, [offsetX, offsetY]);
+        // 포인터의 거리에 대한 반지름 비율 계산
+        const pointerDistance = Math.floor((distance / centerPoint) * 100);
 
-      $saturationInput.value = pointerDistance;
-      $saturationRange.value = pointerDistance;
+        $saturationInput.value = pointerDistance;
+        $saturationRange.value = pointerDistance;
 
-      const degree = useDistanceCalculateAngle(centerPoint, [offsetX, offsetY]);
+        const degree = distanceCalculateAngle(centerPoint, [offsetX, offsetY]);
 
-      $hueInput.value = degree;
-      $hueRange.value = degree;
+        $hueInput.value = degree;
+        $hueRange.value = degree;
 
-      changeResultBoard();
+        changeResultBoard();
+      }
     }
   }
 }
@@ -389,10 +409,21 @@ function endDrag(e) {
   selectedElement = false;
 }
 
-$circleBoard.addEventListener("mousedown", startDrag);
-$circleBoard.addEventListener("mousemove", drag);
-$circleBoard.addEventListener("mouseup", endDrag);
-$circleBoard.addEventListener("mouseleave", endDrag);
+if (
+  navigator.userAgent.match(
+    /Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/
+  )
+) {
+  $circleBoard.addEventListener("touchstart", startDrag);
+  $circleBoard.addEventListener("touchmove", drag);
+  $circleBoard.addEventListener("touchend", endDrag);
+  $circleBoard.addEventListener("touchend", endDrag);
+} else {
+  $circleBoard.addEventListener("mousedown", startDrag);
+  $circleBoard.addEventListener("mousemove", drag);
+  $circleBoard.addEventListener("mouseup", endDrag);
+  $circleBoard.addEventListener("mouseleave", endDrag);
+}
 
 registerEventListener($hueInput, "input", inputEvent, "hue");
 registerEventListener($hueRange, "input", rangeEvent, "hue");

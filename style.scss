@@ -28,11 +28,48 @@ body {
   height: 350px;
   border: 1px solid black;
   border-radius: 50%;
-  background-image: url("./img/Color.jpg");
+  // background-image: url("./img/Color.jpg");
+  // background-image: url("./img/colorCircle.png");
+  // transform: rotate(180deg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   margin-bottom: 30px;
+  // @include hidpi;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // top: -50%;
+    // left: -50%;
+    z-index: -1;
+    background: url("./img/colorCircle.png") 0 0 repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@mixin hidpi {
+  $hidpi-debug: false !default;
+  @if $hidpi-debug {
+    @content;
+  } @else {
+    @media (-webkit-min-device-pixel-ratio: 1.3),
+      (-o-min-device-pixel-ratio: 2.6/2),
+      (min--moz-device-pixel-ratio: 1.3),
+      (min-device-pixel-ratio: 1.3),
+      (min-resolution: 1.3dppx) {
+      @content;
+    }
+  }
 }
 
 .color-circle {
@@ -40,8 +77,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 66%;
-  height: 66%;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50%;
@@ -67,8 +104,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 67%;
-  height: 67%;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50%;
