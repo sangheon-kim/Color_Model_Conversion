@@ -1,3 +1,6 @@
+// 색상환 캔버스 그려주기
+draw();
+
 // 원형판
 const $circleBoard = document.querySelector(".color-circle");
 // 포인터 Element
@@ -268,7 +271,9 @@ function distanceCalculateAngle(centerPoint, offsetArray) {
   let radian = Math.atan2(x, y);
   // radian 값 활용해서 각도 구하기
   const degree =
-    offsetX < 117 ? Math.floor(360 - radian2degree(radian)) : Math.floor(radian2degree(radian));
+    offsetX < centerPoint
+      ? Math.floor(360 - radian2degree(radian))
+      : Math.floor(radian2degree(radian));
 
   return degree;
 }
@@ -431,3 +436,25 @@ registerEventListener($lightnessInput, "input", inputEvent, "lightness");
 registerEventListener($lightnessRange, "input", rangeEvent, "lightness");
 registerEventListener($saturationInput, "input", inputEvent, "saturation");
 registerEventListener($saturationRange, "input", rangeEvent, "saturation");
+
+/**
+ * @description 이미지 제거 캔버스로 대체
+ * @author Sangheon Kim
+ */
+function draw() {
+  var canvas = document.getElementById("circle");
+
+  if (canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+    let centerPoint = canvas.clientWidth / 2;
+    for (let x = 0; x < canvas.clientWidth; x++) {
+      for (let y = 0; y < canvas.clientHeight; y++) {
+        const saturation = (circleEquation(centerPoint, [x, y]) / centerPoint) * 100;
+        const hue = distanceCalculateAngle(centerPoint, [x, y]);
+
+        ctx.fillStyle = `hsl(${hue}, ${saturation}%, 50%)`;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+}
