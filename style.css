@@ -2,6 +2,8 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 * {
@@ -32,7 +34,6 @@ body {
 
 .circle {
   position: relative;
-  border: 1px solid black;
   border-radius: 50%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -43,8 +44,8 @@ body {
 .color-circle {
   position: absolute;
   top: 0;
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   cursor: pointer;
@@ -54,20 +55,19 @@ body {
 
 .point {
   position: absolute;
-  top: -8px;
-  left: calc(50% - 7.5px);
-  width: 15px;
-  height: 15px;
+  top: -15px;
+  left: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: 2px solid gray;
-  background-color: red;
+  border: 2px solid #eee;
   z-index: 999;
 }
 
 .brightness-board {
   position: absolute;
   width: 100%;
-  height: 350px;
+  height: 300px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   cursor: pointer;
@@ -78,7 +78,7 @@ body {
 .result-board {
   width: 150px;
   height: 100px;
-  border: 1px solid black;
+  border-radius: 16px;
 }
 
 .form {
@@ -88,20 +88,21 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 11px;
 }
 
 .form > label {
-  min-width: 110px;
-  margin-right: 16px;
+  min-width: 100px;
 }
 
 .form > input[type="range"] {
-  margin-right: 12px;
+  margin-right: 8px;
   min-width: 100px;
 }
 
 .form > input[type="number"] {
-  width: 50px;
+  width: 45px;
+  font-size: 11px;
 }
 
 input[type="number"] + span {
@@ -116,16 +117,24 @@ input[type="number"] + span {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: 10px;
 }
 
 .input-form input[type="number"] {
-  width: 45px;
+  width: 40px;
+  font-size: inherit;
+}
+
+.input-form input[type="text"] {
+  text-align: left;
+  width: 50px;
+  font-size: inherit;
 }
 
 .input-form > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   margin: 5px 0;
 }
 
