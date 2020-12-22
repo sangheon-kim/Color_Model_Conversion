@@ -204,3 +204,35 @@ function draw(elemId) {
     }
   }
 }
+
+function dragChange(e) {
+  let { offsetX, offsetY, touches } = e;
+
+  if (!!e.touches) {
+    const { left, top } = $circleBoard.getBoundingClientRect();
+    const { clientX, clientY } = touches[0];
+
+    offsetX = clientX - left;
+    offsetY = clientY - top;
+  }
+  if (e.target.id !== "point") {
+    // 클릭한 위치에 따라 위치 환산
+    $point.style.left = `${offsetX - 15}px`;
+    $point.style.top = `${offsetY - 15}px`;
+
+    // 거리는 원의 방정식을 이용해서 구해준다.
+    let distance = circleEquation(centerPoint, [offsetX, offsetY]);
+    // 포인터의 거리에 대한 반지름 비율 계산
+    const pointerDistance = Math.floor((distance / centerPoint) * 100);
+
+    $saturationInput.value = pointerDistance;
+    $saturationRange.value = pointerDistance;
+
+    const degree = calculateAngleByDistance(centerPoint, [offsetX, offsetY]);
+
+    $hueInput.value = degree;
+    $hueRange.value = degree;
+
+    changeResultBoard();
+  }
+}
