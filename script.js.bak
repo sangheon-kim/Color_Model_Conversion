@@ -14,7 +14,7 @@ const $saturationRange = document.querySelector("#saturation-range");
 const $lightnessRange = document.querySelector("#lightness-range");
 const $lightnessInput = document.querySelector("#lightness-input");
 // 결과판
-const $resultBoard = document.querySelector(".result-board");
+const $resultBoard = document.querySelector(".color-board");
 const $redInput = document.querySelector("#red-input");
 const $blueInput = document.querySelector("#blue-input");
 const $greenInput = document.querySelector("#green-input");

@@ -1,6 +1,7 @@
 // 색상환 캔버스 그려주기
 draw("circle");
 
+let selectedIndex = 0;
 // 원형판
 const $circleBoard = document.querySelector(".color-circle");
 // 포인터 Element
@@ -15,11 +16,8 @@ const $saturationRange = document.querySelector("#saturation-range");
 const $lightnessRange = document.querySelector("#lightness-range");
 const $lightnessInput = document.querySelector("#lightness-input");
 // 결과판
-const $colorBoard = document.querySelector(".color-board");
-const $redInput = document.querySelector("#red-input");
-const $blueInput = document.querySelector("#blue-input");
-const $greenInput = document.querySelector("#green-input");
-const $hexInput = document.querySelector("#hex-input");
+const $colorBoards = document.querySelectorAll(".color-board");
+const $addColorBtn = document.querySelector(".add-color");
 
 // 드래그 여부 체크
 let selectedElement = false;
@@ -100,12 +98,18 @@ function changeResultBoard() {
     $lightnessRange.value / 100
   );
 
-  [$redInput.value, $greenInput.value, $blueInput.value] = [R, G, B];
+  const $rgbValue = document.querySelectorAll(".rgb_value");
+  const $hexInput = document.querySelectorAll(".hex-input");
+  const $colorBoards = document.querySelectorAll(".color-board");
 
-  rgbToHsl(R, G, B);
-  $hexInput.value = rgbToHex(R, G, B);
+  $rgbValue[selectedIndex].value = `rgb(${R}, ${G}, ${B})`;
+
+  // rgbToHsl(R, G, B);
+  $hexInput[selectedIndex].value = `#${rgbToHex(R, G, B)}`;
   $point.style.backgroundColor = `hsl(${$hueRange.value}, ${$saturationRange.value}%, ${$lightnessRange.value}%)`;
-  return ($colorBoard.style.backgroundColor = `hsl(${$hueRange.value}, ${$saturationRange.value}%, ${$lightnessRange.value}%)`);
+  return ($colorBoards[
+    selectedIndex
+  ].style.backgroundColor = `hsl(${$hueRange.value}, ${$saturationRange.value}%, ${$lightnessRange.value}%)`);
 }
 
 /**
@@ -180,6 +184,25 @@ function endDrag(e) {
   selectedElement = false;
 }
 
+function selectChangeColor(e) {
+  selectedIndex = e.target.parentElement.id;
+  const $colorBoards = document.querySelectorAll(".color-board");
+  $colorBoards.forEach((item) => {
+    if (item.classList.contains("selected")) {
+      item.classList.remove("selected");
+    }
+  });
+  $colorBoards[selectedIndex].classList.add("selected");
+
+  const backgroundColor = $colorBoards[selectedIndex].style.backgroundColor;
+  const reg = /rgb\(([0-2]{0,1}[0-9]{0,2}),+.([0-2]{0,1}[0-9]{0,2}),+.([0-2]{0,1}[0-9]{0,2})/gm;
+  const found = $colorBoards[selectedIndex].style.backgroundColor.match(reg);
+  const [_, R, G, B] = reg.exec(backgroundColor);
+  const [H, S, L] = rgbToHsl(R, G, B);
+
+  hslApplyBoard(H, S, L);
+}
+
 if (
   navigator.userAgent.match(
     /Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/
@@ -202,3 +225,17 @@ registerEventListener($lightnessInput, "input", inputEvent, "lightness");
 registerEventListener($lightnessRange, "input", rangeEvent, "lightness");
 registerEventListener($saturationInput, "input", inputEvent, "saturation");
 registerEventListener($saturationRange, "input", rangeEvent, "saturation");
+
+[...$colorBoards].forEach((colorBoard) => {
+  colorBoard.addEventListener("click", selectChangeColor);
+});
+
+$addColorBtn.addEventListener("click", function () {
+  const $result = document.querySelector(".result");
+
+  const $resultBoard = new SelectController().element;
+
+  $result.append($resultBoard);
+
+  $result.scrollTop = $result.scrollHeight;
+});

@@ -15,6 +15,24 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.add-color {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #4fe01e;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  color: white;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  outline: none;
+  z-index: 10000;
+  cursor: pointer;
+}
+
 .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,19 +85,13 @@ body {
 
 .brightness-board {
   position: absolute;
-  width: 100%;
+  width: 300px;
   height: 300px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   cursor: pointer;
   border-radius: 50%;
   z-index: 0;
-}
-
-.result-board {
-  width: 150px;
-  height: 100px;
-  border-radius: 16px;
 }
 
 .form {
@@ -106,40 +118,73 @@ body {
   font-size: 11px;
 }
 
-input[type="number"] + span {
+.form input[type="number"] + span {
   margin-left: 5px;
 }
 
-.input-form {
+.result {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 10px;
+  width: 355px;
+  max-height: 240px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+@media (min-width: 750px) {
+  .result {
+    width: 500px;
+  }
+}
+
+.result .result-board {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  font-size: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 8px;
+  width: 105px;
+  height: 120px;
 }
 
-.input-form input[type="number"] {
-  width: 40px;
-  font-size: inherit;
+.result .result-board .color-board {
+  width: 105px;
+  height: 70px;
+  border-radius: 16px;
+  cursor: pointer;
 }
 
-.input-form input[type="text"] {
-  text-align: left;
-  width: 50px;
-  font-size: inherit;
+.result .result-board .color-board.selected {
+  border: 3px solid yellow;
 }
 
-.input-form > div {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin: 5px 0;
+.result .result-board .result-title {
+  width: 105px;
+  display: inline-block;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.input-form > div label {
-  margin: 0 5px;
+.result .result-board .result-title input {
+  border: none;
+  margin-top: 8px;
+  outline: none;
 }
 /*# sourceMappingURL=style.css.map */

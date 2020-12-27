@@ -236,3 +236,20 @@ function dragChange(e) {
     changeResultBoard();
   }
 }
+
+function hslApplyBoard(H, S, L) {
+  S = Math.floor(S * 100);
+  L = Math.floor(L * 100);
+  $hueInput.value = H;
+  $hueRange.value = H;
+
+  $saturationInput.value = S;
+  $saturationRange.value = S;
+
+  $lightnessInput.value = L;
+  $lightnessRange.value = L;
+
+  hueChange(H);
+  saturationChange(S);
+  lightnessChange(L);
+}
