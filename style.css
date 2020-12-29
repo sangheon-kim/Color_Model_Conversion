@@ -13,6 +13,8 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  -ms-touch-action: pinch-zoom;
+      touch-action: pinch-zoom;
 }
 
 .add-color {
@@ -137,6 +139,8 @@ body {
   max-height: 240px;
   overflow: auto;
   overflow-x: hidden;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 @media (min-width: 750px) {
