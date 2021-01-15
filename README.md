@@ -9,7 +9,7 @@
 
 ## <a href="https://k4zo2.csb.app/" target="_blank">Demo</a>
 
-## Version 1.0.3
+## Version 1.1.0 (Last Updated 20210115 22:50)
 
 ### HSL To RGB and Hex Code
 
@@ -32,7 +32,13 @@
   - [x] HSL to RGB Conversion
 
 - V 1.0.3
+
   - [x] Div Element BackGround Image Color Image to Canvas Elem (Add Canvas Script Code)
+
+- V 1.1.0
+- [x] Can Select Multi Color
+- [x] Lightness range to Lightness Canvas
+- [x] colorCircle Size 300px -> 250px
 
 ### Tech
 

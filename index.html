@@ -7,13 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <img src="./img/menu.png" alt="menu" width="50" id="menu" />
-  <ul class="link-list" style="display: none;">
-    <li class="link-list__item">Single Pointer</li>
-    <li class="link-list__item">Multi Pointer</li>
-  </ul>
+  <!-- <img src="./img/menu.png" alt="menu" width="50" id="menu" /> -->
+  <button class="add-color">+</button>
   <div class="wrapper">
-    <canvas class="circle" id="circle" width="300" height="300"></canvas>
+    <canvas class="circle" id="circle" width="250" height="250"></canvas>
     <div class="color-circle">
       <div class="point" id="point"></div>
     </div>
@@ -51,7 +48,7 @@
         id="saturation-input"
       /><span>%</span>
     </div>
-    <div class="form">
+    <div class="form" style="visibility: hidden;">
       <label for="lightness">Lightness (밝기)</label>
       <input
         type="range"
@@ -70,25 +67,22 @@
         max="100"
       /><span>%</span>
     </div>
-    <div class="color-board"></div>
-    <h2>Conversion Result</h2>
-    <form class="input-form">
-      <div class="input-form-rgb">
-        <p class="result-title">RGB</p>
-        <label for="red">R</label>
-        <input type="number" name="red" value="0" id="red-input" min="0" max="255" readonly="true" />
-        <label for="green">G</label>
-        <input type="number" name="green" value="0" id="green-input" min="0" max="255" readonly="true"/>
-        <label for="green">B</label>
-        <input type="number" name="blue" value="0" id="blue-input" min="0" max="255" readonly="true"/>
+    <div class="lightness-change">
+      <div class="stick"></div>
+      <canvas class="lightness-canvas" id="lightness" width="300" height="20"></canvas>
+    </div>
+    <div class="result">
+      <div class="result-board" id="0">
+        <div class="color-board selected"></div>
+        <div class="result-title">
+          <input type="text" value="0" name="rgb_value" readonly="true" class="rgb_value"/>
+          <input type="text" name="text" value="0" class="hex-input" readonly="true"/>
+        </div>
       </div>
-      <div class="input-form-rgb">
-        <label for="hex">HexCode #</label>
-        <input type="text" name="text" value="0" id="hex-input" readonly="true"/>
-      </div>
-    </form>
+    </div>
   </div>
   <script src="./js/commonUtil.js"></script>
-  <script src="./js/dragable.js"></script>
+  <script src="./js/selectController.js"></script>
+  <script src="./js/dragable2.js"></script>
 </body>
 </html>
