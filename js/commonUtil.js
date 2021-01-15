@@ -205,6 +205,19 @@ function draw(elemId) {
   }
 }
 
+function lightNessDraw(elemId, hue, saturation) {
+  var canvas = document.getElementById(elemId);
+
+  if (canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+
+    for (let x = 0; x <= canvas.clientWidth; x++) {
+      ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${(x / canvas.clientWidth) * 100}%)`;
+      ctx.fillRect(x, 0, 1, canvas.clientHeight);
+    }
+  }
+}
+
 function dragChange(e) {
   let { offsetX, offsetY, touches } = e;
 
@@ -237,6 +250,34 @@ function dragChange(e) {
   }
 }
 
+function lightnessBoardChange(e) {
+  let { clientX, touches } = e;
+
+  const { left, top } = $lightNessBoard.getBoundingClientRect();
+
+  if (!!touches) {
+    const { clientX, clientY } = touches[0];
+    offsetX = clientX - left;
+  } else {
+    offsetX = clientX - left;
+  }
+
+  const $stick = document.querySelector(".stick");
+
+  if (offsetX > 0 && offsetX < $lightNessBoard.clientWidth) {
+    $stick.style.left = `${offsetX - 5}px`;
+    const lightnessValue = (offsetX / $lightNessBoard.clientWidth) * 100;
+
+    // $lightnessInput.value = lightnessValue;
+
+    $lightnessRange.value = lightnessValue;
+    // console.log($lightnessRange.value);
+
+    lightnessChange(lightnessValue);
+    changeResultBoard();
+  }
+}
+
 function hslApplyBoard(H, S, L) {
   S = Math.floor(S * 100);
   L = Math.floor(L * 100);
@@ -248,6 +289,9 @@ function hslApplyBoard(H, S, L) {
 
   $lightnessInput.value = L;
   $lightnessRange.value = L;
+
+  const $stick = document.querySelector(".stick");
+  $stick.style.left = `${$lightNessBoard.clientWidth * (L / 100)}px`;
 
   hueChange(H);
   saturationChange(S);

@@ -19,8 +19,12 @@ const $lightnessInput = document.querySelector("#lightness-input");
 const $colorBoards = document.querySelectorAll(".color-board");
 const $addColorBtn = document.querySelector(".add-color");
 
+const $lightNessBoard = document.querySelector(".lightness-change");
+
 // 드래그 여부 체크
 let selectedElement = false;
+
+let lightNessSelectedElement = false;
 
 // 정사각형이기때문에 중심좌표는 반지름이다.
 const centerPoint = Math.floor($circleBoard.clientWidth / 2);
@@ -107,6 +111,7 @@ function changeResultBoard() {
   // rgbToHsl(R, G, B);
   $hexInput[selectedIndex].value = `#${rgbToHex(R, G, B)}`;
   $point.style.backgroundColor = `hsl(${$hueRange.value}, ${$saturationRange.value}%, ${$lightnessRange.value}%)`;
+  lightNessDraw("lightness", $hueRange.value, $saturationInput.value);
   return ($colorBoards[
     selectedIndex
   ].style.backgroundColor = `hsl(${$hueRange.value}, ${$saturationRange.value}%, ${$lightnessRange.value}%)`);
@@ -184,6 +189,21 @@ function endDrag(e) {
   selectedElement = false;
 }
 
+function startDragLightness(e) {
+  lightnessBoardChange(e);
+  lightNessSelectedElement = true;
+}
+
+function dragLightness(e) {
+  if (!!lightNessSelectedElement) {
+    lightnessBoardChange(e);
+  }
+}
+
+function endDragLightness() {
+  lightNessSelectedElement = false;
+}
+
 function selectChangeColor(e) {
   selectedIndex = e.target.parentElement.id;
   const $colorBoards = document.querySelectorAll(".color-board");
@@ -212,11 +232,19 @@ if (
   $circleBoard.addEventListener("touchmove", drag);
   $circleBoard.addEventListener("touchend", endDrag);
   $circleBoard.addEventListener("touchend", endDrag);
+  $lightNessBoard.addEventListener("touchstart", startDragLightness);
+  $lightNessBoard.addEventListener("touchmove", dragLightness);
+  $lightNessBoard.addEventListener("touchend", endDragLightness);
+  $lightNessBoard.addEventListener("touchend", endDragLightness);
 } else {
   $circleBoard.addEventListener("mousedown", startDrag);
   $circleBoard.addEventListener("mousemove", drag);
   $circleBoard.addEventListener("mouseup", endDrag);
   $circleBoard.addEventListener("mouseleave", endDrag);
+  $lightNessBoard.addEventListener("mousedown", startDragLightness);
+  $lightNessBoard.addEventListener("mousemove", dragLightness);
+  $lightNessBoard.addEventListener("mouseup", endDragLightness);
+  $lightNessBoard.addEventListener("mouseleave", endDragLightness);
 }
 
 registerEventListener($hueInput, "input", inputEvent, "hue");

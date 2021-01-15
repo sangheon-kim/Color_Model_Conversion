@@ -51,11 +51,32 @@ body {
   margin-bottom: 30px;
 }
 
+.lightness-change {
+  position: relative;
+  cursor: pointer;
+  .lightness-canvas {
+    // position: relative;
+    border: 1px solid black;
+    border-radius: 16px;
+    // z-index: 9999;
+  }
+
+  .stick {
+    position: absolute;
+    width: 10px;
+    height: 25px;
+    top: 0px;
+    left: 50%;
+    border: 2px solid #ddd;
+    // z-index: 0;
+  }
+}
+
 .color-circle {
   position: absolute;
   top: 0;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50%;
@@ -75,8 +96,8 @@ body {
 
 .brightness-board {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 50%;

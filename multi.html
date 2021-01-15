@@ -10,7 +10,7 @@
   <!-- <img src="./img/menu.png" alt="menu" width="50" id="menu" /> -->
   <button class="add-color">+</button>
   <div class="wrapper">
-    <canvas class="circle" id="circle" width="300" height="300"></canvas>
+    <canvas class="circle" id="circle" width="250" height="250"></canvas>
     <div class="color-circle">
       <div class="point" id="point"></div>
     </div>
@@ -48,7 +48,7 @@
         id="saturation-input"
       /><span>%</span>
     </div>
-    <div class="form">
+    <div class="form" style="visibility: hidden;">
       <label for="lightness">Lightness (밝기)</label>
       <input
         type="range"
@@ -66,6 +66,10 @@
         id="lightness-input"
         max="100"
       /><span>%</span>
+    </div>
+    <div class="lightness-change">
+      <div class="stick"></div>
+      <canvas class="lightness-canvas" id="lightness" width="300" height="20"></canvas>
     </div>
     <div class="result">
       <div class="result-board" id="0">
