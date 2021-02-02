@@ -4,8 +4,8 @@
 
 ![](img/sh-12-20-18-42.png)
 
-- demo Video
-  ![](dragColorPicker.gif)
+<!-- - demo Video -->
+  <!-- ![](dragColorPicker.gif) -->
 
 ## <a href="https://k4zo2.csb.app/" target="_blank">Demo</a>
 
